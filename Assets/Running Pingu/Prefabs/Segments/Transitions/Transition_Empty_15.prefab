@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8703406181927636728}
   - component: {fileID: 140864619899861795}
   m_Layer: 0
-  m_Name: Transition_Empty_10
+  m_Name: Transition_Empty_15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTransition: 1
-  length: 10
+  length: 15
   beginY1: 0
   beginY2: 0
   beginY3: 0

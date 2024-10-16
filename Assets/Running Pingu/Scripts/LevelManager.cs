@@ -5,16 +5,17 @@ using Random = UnityEngine.Random;
 public class LevelManager : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private List<Obstacle> ramps = new();
-    [SerializeField] private List<Obstacle> longBlocks = new();
-    [SerializeField] private List<Obstacle> jumps = new();
-    [SerializeField] private List<Obstacle> slides = new();
+    public List<Obstacle> ramps = new();
+    public List<Obstacle> longBlocks = new();
+    public List<Obstacle> jumps = new();
+    public List<Obstacle> slides = new();
     [SerializeField] private List<Segment> availableSegments = new();
     [SerializeField] private List<Segment> availableTransitions = new();
     
     [Header("Settings")]
     [SerializeField] private float distanceBeforeSpawn = 100f;
     [SerializeField] private int initialSegments = 10;
+    [SerializeField] private int initialTransitionSegments = 2;
     [SerializeField] private int maxSegmentsOnScreen = 15;
     [SerializeField] private bool showCollider = false;
 
@@ -28,6 +29,8 @@ public class LevelManager : MonoBehaviour
     private List<Obstacle> spawnedObstacles = new(); // all the obstacles in the pool
     private List<Segment> spawnedSegments = new();
 
+    public bool ShowCollider => showCollider;
+    
     public static LevelManager Instance;
 
     private void Awake()
@@ -44,11 +47,32 @@ public class LevelManager : MonoBehaviour
         GenerateInitialSegments();
     }
 
+    private void Update()
+    {
+        // check if the camera is close enough to generate new segments
+        if (currentSpawnZ - cameraContainer.position.z < distanceBeforeSpawn)
+        {
+            GenerateSegment();
+        }
+
+        // we've spawned a new segment that exceeds the max number of segments at one time
+        // so we despawn the oldest one
+        if (amountOfActiveSegments >= maxSegmentsOnScreen)
+        {
+            // we despawn the oldest segment
+            spawnedSegments[amountOfActiveSegments - 1].Despawn();
+            amountOfActiveSegments--;
+        }
+    }
+
     private void GenerateInitialSegments()
     {
         for (int i = 0; i < initialSegments; i++)
         {
-            GenerateSegment();
+            if (i < initialTransitionSegments)
+                SpawnTransition();
+            else
+                GenerateSegment();
         }
     }
 

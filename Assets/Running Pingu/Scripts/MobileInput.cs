@@ -15,11 +15,11 @@ public class MobileInput : MonoBehaviour
     public bool SwipeUp => swipeUp;
     public bool SwipeDown => swipeDown;
 
-    public static MobileInput instance;
+    public static MobileInput Instance;
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     private void Update()

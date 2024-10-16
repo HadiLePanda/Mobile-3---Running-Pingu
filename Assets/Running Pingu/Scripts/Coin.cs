@@ -23,7 +23,7 @@ public class Coin : Pickup
         canPickUp = false;
 
         // add coins value
-        GameManager.instance.AddCoinsScore(coinsValue);
+        GameManager.Instance.AddCoinsScore(coinsValue);
 
         // play pickup animation
         anim.SetTrigger(ANIM_COLLECTED);

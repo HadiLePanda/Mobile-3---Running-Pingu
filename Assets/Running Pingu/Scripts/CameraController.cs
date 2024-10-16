@@ -9,13 +9,13 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float followSpeed = 1f;
     [SerializeField] private Transform menuViewParent; // TODO: assign menu transform that acts as a reference for where the camera will be in the main menu state
 
-    public static CameraController instance;
+    public static CameraController Instance;
 
     private Vector3 offset;
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
 
         offset = transform.position - target.transform.position;
     }

@@ -22,11 +22,11 @@ public class Player : MonoBehaviour
 
     public PlayerState State => playerState;
 
-    public static Player instance;
+    public static Player Instance;
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     private void Start()
@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
         playerState = PlayerState.Dead;
         Controller.StopRunning();
 
-        GameManager.instance.GameOver();
+        GameManager.Instance.GameOver();
     }
 
     public void TeleportToStart()

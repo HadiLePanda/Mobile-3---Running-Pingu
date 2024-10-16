@@ -11,9 +11,9 @@ public class UIDebugStates : MonoBehaviour
 
     private void Update()
     {
-        playerState.text = "Player: " + Player.instance.State.ToString();
-        movementState.text = "Movement: " + Player.instance.Controller.MovementState.ToString();
-        gameState.text = "Game: " + GameManager.instance.GameState.ToString();
-        speedText.text = "Speed: " + Player.instance.Controller.Speed.ToString("N1");
+        playerState.text = "Player: " + Player.Instance.State.ToString();
+        movementState.text = "Movement: " + Player.Instance.Controller.MovementState.ToString();
+        gameState.text = "Game: " + GameManager.Instance.GameState.ToString();
+        speedText.text = "Speed: " + Player.Instance.Controller.Speed.ToString("N1");
     }
 }

@@ -29,11 +29,11 @@ public class GameManager : MonoBehaviour
     public float DifficultyModifier => difficultyModifier;
     public GameState GameState => gameState;
 
-    public static GameManager instance;
+    public static GameManager Instance;
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
 
         // TODO: make sure we start in main menu once we've got a main menu working
         //gameState = GameState.Mainmenu;
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         // start playing the game when we tap the screen while the race in in Idle
-        if (MobileInput.instance.Tap &&
+        if (MobileInput.Instance.Tap &&
             gameState == GameState.Idle)
         {
             isGameStarted = true;
@@ -74,11 +74,11 @@ public class GameManager : MonoBehaviour
         ResetStates();
 
         // teleport the player to the start and make them idle
-        Player.instance.TeleportToStart();
-        Player.instance.Idle();
+        Player.Instance.TeleportToStart();
+        Player.Instance.Idle();
 
         // teleport the camera to the player
-        CameraController.instance.TeleportToTargetPosition();
+        CameraController.Instance.TeleportToTargetPosition();
     }
 
     private void ResetStates()
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.Playing;
 
-        Player.instance.Run();
+        Player.Instance.Run();
     }
 
     public void GameOver()

@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         // calculate speed
-        speed = baseSpeed * GameManager.instance.DifficultyModifier;
+        speed = baseSpeed * GameManager.Instance.DifficultyModifier;
 
         // check grounded state
         wasGroundedLastFrame = isGrounded;
@@ -112,12 +112,12 @@ public class PlayerController : MonoBehaviour
     private void HandleInput()
     {
         // handle player input for switching lanes
-        if (MobileInput.instance.SwipeLeft)
+        if (MobileInput.Instance.SwipeLeft)
         {
             MoveLane(MovementDirection.Left);
             Debug.Log("Moving left");
         }
-        else if (MobileInput.instance.SwipeRight)
+        else if (MobileInput.Instance.SwipeRight)
         {
             MoveLane(MovementDirection.Right);
             Debug.Log("Moving right");
@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             // detected jump input
-            if (MobileInput.instance.SwipeUp)
+            if (MobileInput.Instance.SwipeUp)
             {
                 // if we were sliding cancel the slide?
                 if (movementState == MovementState.Sliding)
@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
                 Jump();
             }
             // detected slide input
-            else if (MobileInput.instance.SwipeDown)
+            else if (MobileInput.Instance.SwipeDown)
             {
                 // only slide if we're not already sliding
                 if (movementState != MovementState.Sliding)
@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             // fast falling mechanic
-            if (MobileInput.instance.SwipeDown)
+            if (MobileInput.Instance.SwipeDown)
             {
                 FastFall();
             }
@@ -320,7 +320,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // only detect when running
-        if (Player.instance.State != PlayerState.Running)
+        if (Player.Instance.State != PlayerState.Running)
             return;
 
         // entered a pickup

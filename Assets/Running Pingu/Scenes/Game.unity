@@ -303,7 +303,6 @@ MonoBehaviour:
   - {fileID: 8769465241164623328, guid: 8992d9ef403271b46aab8ec199eedc0c, type: 3}
   availableTransitions:
   - {fileID: 140864619899861795, guid: 6934382b4a234b94dba5346ea1f0cb75, type: 3}
-  - {fileID: 140864619899861795, guid: e1a7e08b76de9024e9dffa4d869a3619, type: 3}
   distanceBeforeSpawn: 100
   initialSegments: 10
   initialTransitionSegments: 2
@@ -1067,7 +1066,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962171223}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1080,7 +1079,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cd70b9825459f104abdab79054a0ffec, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1285,7 +1284,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &979221186
 MeshRenderer:
   m_ObjectHideFlags: 0

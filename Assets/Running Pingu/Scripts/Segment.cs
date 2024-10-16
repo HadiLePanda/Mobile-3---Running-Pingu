@@ -10,11 +10,13 @@ public class Segment : MonoBehaviour
     public int endY1, endY2, endY3;
 
     private ObstacleSpawner[] obstacleSpawners;
+    private CoinSpawner[] coinSpawners;
 
     private void Awake()
     {
-        // get all the obstacle spawners in this segment
+        // get all the spawners in this segment
         obstacleSpawners = gameObject.GetComponentsInChildren<ObstacleSpawner>();
+        coinSpawners = gameObject.GetComponentsInChildren<CoinSpawner>();
 
         // toggle colliders visibility
         for (int i = 0; i < obstacleSpawners.Length; i++)

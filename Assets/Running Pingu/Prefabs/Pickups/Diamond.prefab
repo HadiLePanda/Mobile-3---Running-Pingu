@@ -73,6 +73,11 @@ PrefabInstance:
       propertyPath: coinsValue
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7672434287736010276, guid: a283cb77eecd31b4e89e8bd466ab6a60,
+        type: 3}
+      propertyPath: pickupCollider
+      value: 
+      objectReference: {fileID: 4312654862769097338}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 3216107495660706911, guid: a283cb77eecd31b4e89e8bd466ab6a60, type: 3}

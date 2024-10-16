@@ -90,7 +90,6 @@ public class LevelManager : MonoBehaviour
         {
             continuousSegments++;
         }
-
     }
 
     private void SpawnSegment()

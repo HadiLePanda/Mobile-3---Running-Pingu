@@ -110,7 +110,7 @@ CharacterController:
   serializedVersion: 3
   m_Height: 1.2
   m_Radius: 0.24
-  m_SlopeLimit: 45
+  m_SlopeLimit: 50
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
@@ -144,17 +144,17 @@ MonoBehaviour:
   player: {fileID: 7021431127613527839}
   controller: {fileID: 6951326421480502298}
   anim: {fileID: 8597024946040162097}
-  jumpForce: 6
   gravity: 12
-  speed: 7
+  lookRotationDuration: 0.05
+  baseSpeed: 7
+  jumpForce: 6
   slideDuration: 1
-  rotationDuration: 0.05
-  groundedRayOffsetY: 0.2
-  groundedRayTreshold: 0.1
   slideHitboxMutliplier: 0.5
   groundedLayerMask:
     serializedVersion: 2
     m_Bits: 385
+  groundedRayOffsetY: 0.2
+  groundedRayTreshold: 0.1
 --- !u!1001 &6096760683832214201
 PrefabInstance:
   m_ObjectHideFlags: 0

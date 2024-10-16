@@ -7,18 +7,35 @@ public class CameraController : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float followSpeed = 1f;
+    [SerializeField] private Transform menuViewParent; // TODO: assign menu transform that acts as a reference for where the camera will be in the main menu state
+
+    public static CameraController instance;
 
     private Vector3 offset;
 
     private void Awake()
     {
+        instance = this;
+
         offset = transform.position - target.transform.position;
     }
 
     private void Start()
     {
         // snap directly to the position on start
+        TeleportToTargetPosition();
+    }
+
+    public void TeleportToTargetPosition()
+    {
         transform.position = target.position + offset;
+        transform.rotation = target.rotation;
+    }
+
+    public void TeleportToMainMenuPosition()
+    {
+        transform.position = menuViewParent.position;
+        transform.rotation = menuViewParent.rotation;
     }
 
     private void LateUpdate()

@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     [field:SerializeField] public PlayerController Controller { get; private set; }
 
     private PlayerState playerState = PlayerState.Idle;
+    private Vector3 startPosition;
+    private Quaternion startRotation;
 
     public PlayerState State => playerState;
 
@@ -25,6 +27,11 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        startPosition = transform.position;
     }
 
     private void Update()
@@ -37,7 +44,7 @@ public class Player : MonoBehaviour
     public void Idle()
     {
         playerState = PlayerState.Idle;
-        Controller.StopRunning();
+        Controller.Idle();
     }
 
     public void Run()
@@ -50,5 +57,13 @@ public class Player : MonoBehaviour
     {
         playerState = PlayerState.Dead;
         Controller.StopRunning();
+
+        GameManager.instance.GameOver();
+    }
+
+    public void TeleportToStart()
+    {
+        transform.position = startPosition;
+        transform.rotation = startRotation;
     }
 }

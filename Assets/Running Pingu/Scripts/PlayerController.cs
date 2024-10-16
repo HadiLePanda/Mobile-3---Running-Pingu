@@ -29,35 +29,56 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator anim;
 
     [Header("Settings")]
-    [SerializeField] private float jumpForce = 4f;
     [SerializeField] private float gravity = 12f;
-    [SerializeField] private float speed = 7f;
+    [SerializeField] private float lookRotationDuration = 0.05f;
+
+    [Header("Speed")]
+    [SerializeField] private float baseSpeed = 7f;
+
+    [Header("Jumping")]
+    [SerializeField] private float jumpForce = 4f;
+
+    [Header("Sliding")]
     [SerializeField] private float slideDuration = 1f;
-    [SerializeField] private float rotationDuration = 0.05f;
+    [SerializeField] private float slideHitboxMutliplier = 0.5f;
+
+    [Header("Grounded")]
+    [SerializeField] private LayerMask groundedLayerMask;
     [SerializeField] private float groundedRayOffsetY = 0.2f;
     [SerializeField] private float groundedRayTreshold = 0.1f;
-    [SerializeField] private float slideHitboxMutliplier = 0.5f;
-    [SerializeField] private LayerMask groundedLayerMask;
 
     private MovementState movementState = MovementState.Idle;
-    private bool isGrounded;
-    private float verticalVelocity;
     private int desiredLane = 1; // 0 = left, 1 = middle, 2 = right
+    private bool isGrounded;
     private bool wasGroundedLastFrame;
+    private float verticalVelocity;
     private float startingHitboxHeight;
     private Vector3 startingHitboxCenter;
-
+    private float speed;
     private Coroutine slideRoutine;
 
     public bool IsGrounded => isGrounded;
+    public float Speed => speed;
     public MovementState MovementState => movementState;
 
     private void Start()
     {
+        // store original collider size
         startingHitboxHeight = controller.height;
         startingHitboxCenter = controller.center;
 
+        // start at idle
+        Idle();
+    }
+
+    public void Idle()
+    {
         movementState = MovementState.Idle;
+
+        // reset states
+        isGrounded = true;
+        wasGroundedLastFrame = true;
+        desiredLane = 1; // middle lane
     }
 
     public void StartRunning()
@@ -66,7 +87,7 @@ public class PlayerController : MonoBehaviour
     }
     public void StopRunning()
     {
-        movementState = MovementState.Idle;
+        Idle();
     }
 
     private void Update()
@@ -74,12 +95,15 @@ public class PlayerController : MonoBehaviour
         if (player.State != PlayerState.Running)
             return;
 
+        // calculate speed
+        speed = baseSpeed * GameManager.instance.DifficultyModifier;
+
         // check grounded state
         wasGroundedLastFrame = isGrounded;
         isGrounded = GroundedRaycast();
 
         HandleInput();
-        HandleMovement();
+        Move();
         HandleRotation();
 
         UpdateAnimations();
@@ -148,6 +172,12 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Jump");
     }
 
+    private void FastFall()
+    {
+        verticalVelocity = -jumpForce;
+        Debug.Log("Fast Fall");
+    }
+
     private void Land()
     {
         movementState = MovementState.Running;
@@ -187,7 +217,7 @@ public class PlayerController : MonoBehaviour
     {
         // cancel slide routine execution
         if (slideRoutine != null)
-            StopCoroutine(Slide());
+            StopCoroutine(slideRoutine);
         StopSliding();
     }
 
@@ -200,13 +230,7 @@ public class PlayerController : MonoBehaviour
         SetRegularHitbox();
     }
 
-    private void FastFall()
-    {
-        verticalVelocity = -jumpForce;
-        Debug.Log("Fast Fall");
-    }
-
-    private void HandleMovement()
+    private void Move()
     {
         // calculate where we move at
         Vector3 targetPosition = transform.position.z * Vector3.forward;
@@ -250,7 +274,7 @@ public class PlayerController : MonoBehaviour
         if (dir != Vector3.zero)
         {
             dir.y = 0;
-            transform.forward = Vector3.Lerp(transform.forward, dir, rotationDuration);
+            transform.forward = Vector3.Lerp(transform.forward, dir, lookRotationDuration);
         }
     }
 
@@ -281,18 +305,32 @@ public class PlayerController : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (player.State != PlayerState.Dead)
+        // only detect collision when running
+        if (player.State != PlayerState.Running)
+            return;
+
+        // hit an obstacle
+        if (hit.gameObject.CompareTag("Obstacle"))
         {
-            switch (hit.gameObject.tag)
+            // make the player crash and trigger game over
+            player.Crash();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // only detect when running
+        if (Player.instance.State != PlayerState.Running)
+            return;
+
+        // entered a pickup
+        var pickup = other.GetComponentInParent<Pickup>();
+        if (pickup)
+        {
+            if (pickup.CanPickUp())
             {
-                case "Obstacle":
-                    player.Crash();
-                    break;
-                case "Pickup":
-                    // TODO: add pickup logic
-                    //player.PickUp(hit.)
-                default:
-                    break;
+                // pick it up
+                pickup.PickUp();
             }
         }
     }

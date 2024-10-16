@@ -15,8 +15,8 @@ public class UIGame : MonoBehaviour
         if (isPlaying)
         {
             scoreText.text = GameManager.instance.Score.ToString();
-            coinsText.text = GameManager.instance.Coins.ToString();
-            modifierText.text = $"x{GameManager.instance.ScoreModifier}";
+            coinsText.text = GameManager.instance.CoinsScore.ToString();
+            modifierText.text = $"x{GameManager.instance.DifficultyModifier:N1}";
 
             panel.SetActive(true);
         }

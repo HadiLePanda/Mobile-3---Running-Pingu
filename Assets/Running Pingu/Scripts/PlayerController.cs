@@ -204,8 +204,8 @@ public class PlayerController : MonoBehaviour
 
     private void SetSlidingHitbox()
     {
-        controller.height /= 2;
-        controller.center = new Vector3(controller.center.x, controller.center.y / 2, controller.center.z);
+        controller.height *= slideHitboxMutliplier;
+        controller.center = new Vector3(controller.center.x, controller.center.y * slideHitboxMutliplier, controller.center.z);
     }
     private void SetRegularHitbox()
     {

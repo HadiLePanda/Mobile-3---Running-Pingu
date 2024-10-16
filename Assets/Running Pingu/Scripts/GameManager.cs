@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -28,6 +30,8 @@ public class GameManager : MonoBehaviour
     public int CoinsScore => coinsScore;
     public float DifficultyModifier => difficultyModifier;
     public GameState GameState => gameState;
+
+    public Action onGameOver;
 
     public static GameManager Instance;
 
@@ -101,9 +105,11 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.GameOver;
 
-        if (gameOverRoutine != null)
-            StopCoroutine(gameOverRoutine);
-        gameOverRoutine = StartCoroutine(GameOverSequence());
+        onGameOver?.Invoke();
+
+        //if (gameOverRoutine != null)
+        //    StopCoroutine(gameOverRoutine);
+        //gameOverRoutine = StartCoroutine(GameOverSequence());
     }
 
     // TODO: gameover sequence
@@ -117,6 +123,11 @@ public class GameManager : MonoBehaviour
     public void Retry()
     {
         Idle();
+    }
+
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void GoToMainMenu()

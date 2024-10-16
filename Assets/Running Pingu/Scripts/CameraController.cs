@@ -43,7 +43,7 @@ public class CameraController : MonoBehaviour
     {
         // follow the target while keeping the camera's starting distance
         Vector3 desiredPosition = target.position + offset;
-        desiredPosition.x = 0; // don't follow the player on the left and right sides
+        //desiredPosition.x = 0; // don't follow the player on the left and right sides
         transform.position = Vector3.Lerp(transform.position, desiredPosition, followSpeed * Time.deltaTime);
     }
 }

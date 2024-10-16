@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
         Controller.StartRunning();
     }
 
-    public void Die()
+    public void Crash()
     {
         playerState = PlayerState.Dead;
         Controller.StopRunning();

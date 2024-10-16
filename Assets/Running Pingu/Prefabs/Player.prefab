@@ -147,9 +147,11 @@ MonoBehaviour:
   jumpForce: 6
   gravity: 12
   speed: 7
+  slideDuration: 1
   rotationDuration: 0.05
   groundedRayOffsetY: 0.2
   groundedRayTreshold: 0.1
+  slideHitboxMutliplier: 0.5
   groundedLayerMask:
     serializedVersion: 2
     m_Bits: 385

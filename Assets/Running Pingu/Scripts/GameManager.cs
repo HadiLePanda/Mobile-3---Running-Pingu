@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum GameState
 {
-    Menu,
+    Mainmenu,
     Idle,
     Playing,
     GameOver
@@ -12,14 +12,14 @@ public class GameManager : MonoBehaviour
 {
     private int score;
     private int coins;
-    private int scoreModifier;
-    private GameState gameState;
+    private float scoreModifier = 1f;
+    private GameState gameState = GameState.Mainmenu;
 
     private bool isGameStarted = false;
 
     public int Score => score;
     public int Coins => coins;
-    public int ScoreModifier => scoreModifier;
+    public float ScoreModifier => scoreModifier;
     public GameState GameState => gameState;
 
     public static GameManager instance;
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
 
-        gameState = GameState.Menu;
+        gameState = GameState.Mainmenu;
     }
 
     private void Update()
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
         if (MobileInput.instance.Tap &&
             !isGameStarted)
         {
+            isGameStarted = true;
             StartRunning();
         }
     }
@@ -52,14 +53,18 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.GameOver;
 
-        Player.instance.Die();
+        Player.instance.Crash();
+    }
+
+    public void GoToMainMenu()
+    {
+        gameState = GameState.Mainmenu;
     }
 
     public void AddScore(int amount)
     {
         score = Mathf.Max(0, score + amount);
     }
-
     public void AddCoins(int amount)
     {
         coins = Mathf.Max(0, coins + amount);

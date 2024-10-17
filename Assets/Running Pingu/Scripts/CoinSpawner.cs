@@ -37,7 +37,10 @@ public class CoinSpawner : MonoBehaviour
         // spawn a random amount of coins
         else
         {
-            int randomCoinsAmount = Random.Range(0, maxCoin);
+            if (coins.Length < 1)
+                return;
+
+            int randomCoinsAmount = Random.Range(1, maxCoin);
             for (int i = 0; i < randomCoinsAmount; i++)
                 coins[i].SetActive(true);
         }

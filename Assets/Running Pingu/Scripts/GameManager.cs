@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
         Player.Instance.Idle();
 
         // teleport the camera to the player
-        CameraController.Instance.TeleportToTargetPosition();
+        CameraController.Instance.SwitchToIdleCamera();
     }
 
     private void ResetStates()
@@ -99,6 +99,8 @@ public class GameManager : MonoBehaviour
         gameState = GameState.Playing;
 
         Player.Instance.Run();
+
+        CameraController.Instance.SwitchToGameplayCamera();
     }
 
     public void GameOver()

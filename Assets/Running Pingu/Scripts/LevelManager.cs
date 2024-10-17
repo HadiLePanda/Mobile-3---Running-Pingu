@@ -49,6 +49,9 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance.GameState == GameState.GameOver)
+            return;
+
         // check if the camera is close enough to generate new segments
         if (currentSpawnZ - cameraContainer.position.z < distanceBeforeSpawn)
         {

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8610674803629497677}
   - component: {fileID: 4929616013317105367}
   m_Layer: 0
-  m_Name: Glacier
+  m_Name: GlacierSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -243,7 +243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9d0ce3b2caa465a44986c18ddac648a5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 23.9
+      value: 27.39
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9d0ce3b2caa465a44986c18ddac648a5, type: 3}
       propertyPath: m_LocalPosition.y

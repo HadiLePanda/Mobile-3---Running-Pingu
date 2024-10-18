@@ -1,5 +1,7 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIGameOver : MonoBehaviour
 {
@@ -7,6 +9,14 @@ public class UIGameOver : MonoBehaviour
     public GameObject panel;
     public TMP_Text sessionScoreText;
     public TMP_Text sessionCoinsText;
+    public Button retryButton;
+    public Button mainMenuButton;
+
+    [Header("Settings")]
+    public float timeBeforeRetry = 2f;
+    
+    private Coroutine gameOverRoutine;
+    private bool canRetry;
 
     private void OnDestroy()
     {
@@ -20,28 +30,46 @@ public class UIGameOver : MonoBehaviour
         GameManager.Instance.onGameOver += OnGameOver;
     }
 
-    private void Update()
-    {
-        if (panel.activeSelf)
-        {
-            sessionCoinsText.text = GameManager.Instance.CoinsScore.ToString();
-            sessionScoreText.text = GameManager.Instance.Score.ToString();
-        }
-    }
-
     private void OnGameOver()
     {
-        OpenGameOverUI();
+        // play game over sequence
+        if (gameOverRoutine != null)
+            StopCoroutine(gameOverRoutine);
+        gameOverRoutine = StartCoroutine(GameOverUISequence());
     }
 
-    public void OpenGameOverUI()
+    private IEnumerator GameOverUISequence()
     {
+        // hide retry button
+        canRetry = false;
+        retryButton.gameObject.SetActive(false);
+
+        // update session UI data
+        sessionCoinsText.text = GameManager.Instance.SessionCoinsScore.ToString();
+        sessionScoreText.text = GameManager.Instance.SessionScore.ToString();
+
+        // show game over UI
         // TODO: add animation
         panel.SetActive(true);
+
+        // wait for some time
+        yield return new WaitForSeconds(timeBeforeRetry);
+
+        // show retry button
+        retryButton.gameObject.SetActive(true);
+        canRetry = true;
     }
 
     public void Retry()
     {
+        if (!canRetry)
+            return;
+
         GameManager.Instance.ReloadLevel();
+    }
+
+    public void GoToMainMenu()
+    {
+        GameManager.Instance.GoToMainMenu();
     }
 }

@@ -115,12 +115,10 @@ public class PlayerController : MonoBehaviour
         if (MobileInput.Instance.SwipeLeft)
         {
             MoveLane(MovementDirection.Left);
-            Debug.Log("Moving left");
         }
         else if (MobileInput.Instance.SwipeRight)
         {
             MoveLane(MovementDirection.Right);
-            Debug.Log("Moving right");
         }
 
         // we're on the ground
@@ -141,6 +139,8 @@ public class PlayerController : MonoBehaviour
                 // only slide if we're not already sliding
                 if (movementState != MovementState.Sliding)
                 {
+                    if (slideRoutine != null)
+                        StopCoroutine(slideRoutine);
                     slideRoutine = StartCoroutine(Slide());
                 }
             }
@@ -168,21 +168,16 @@ public class PlayerController : MonoBehaviour
         verticalVelocity = jumpForce;
 
         anim.SetTrigger(ANIM_JUMP);
-
-        Debug.Log("Jump");
     }
 
     private void FastFall()
     {
         verticalVelocity = -jumpForce;
-        Debug.Log("Fast Fall");
     }
 
     private void Land()
     {
         movementState = MovementState.Running;
-
-        Debug.Log("Landed");
     }
 
     private IEnumerator Slide()
@@ -198,8 +193,6 @@ public class PlayerController : MonoBehaviour
         // change the collider size
         SetRegularHitbox();
         SetSlidingHitbox();
-
-        Debug.Log("Slide");
     }
 
     private void SetSlidingHitbox()

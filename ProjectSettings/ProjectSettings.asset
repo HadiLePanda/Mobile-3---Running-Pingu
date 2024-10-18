@@ -8,7 +8,7 @@ PlayerSettings:
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
-  defaultScreenOrientation: 4
+  defaultScreenOrientation: 0
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
@@ -161,6 +161,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
+    Android: com.hadilepanda.RunningPingu
     Standalone: com.hadilepanda.runningpingu
   buildNumber:
     Standalone: 0
@@ -287,7 +288,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 2f41b8eb1aa75064c955820092bb4367, type: 3}
+      m_Icon: {fileID: 2800000, guid: e18dd9ff5e1a8a7459bbd8fb92491ec5, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

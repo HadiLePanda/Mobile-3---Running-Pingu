@@ -40,6 +40,10 @@ public class Coin : Pickup
         // play pickup sound
         AudioManager.Instance.PlaySound2DOneShot(pickupSound, pitchVariation: 0.1f);
 
+        // play pickup effect (for now we play the one instance attached to the player)
+        Player.Instance.pickupCoinEffect.gameObject.SetActive(true);
+        Player.Instance.pickupCoinEffect.Play();
+
         // play pickup effect
         if (pickupEffect != null)
             pickupEffect.Play();

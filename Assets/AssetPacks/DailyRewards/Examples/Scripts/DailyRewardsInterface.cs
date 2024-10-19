@@ -226,7 +226,7 @@ namespace NiobiumStudios
             }
             else
             {
-                Debug.LogError("Tried to snap to non existing reward");
+                Debug.LogWarning("Tried to snap to non existing reward");
             }
         }
 

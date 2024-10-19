@@ -19,7 +19,11 @@ public class Player : MonoBehaviour
     [field:SerializeField] public PlayerSkinController SkinController { get; private set; }
 
     [Header("Sounds")]
-    [SerializeField] private AudioClip crashSound;
+    public AudioClip crashSound;
+
+    [Header("Effects")]
+    public ParticleSystem crashEffect;
+    public ParticleSystem pickupCoinEffect;
 
     private PlayerState playerState = PlayerState.Idle;
     private Vector3 startPosition;
@@ -40,6 +44,10 @@ public class Player : MonoBehaviour
     {
         if (anim == null)
             anim = defaultAnimator;
+
+        // setup effects state
+        crashEffect.gameObject.SetActive(false);
+        pickupCoinEffect.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -64,11 +72,18 @@ public class Player : MonoBehaviour
     public void Crash()
     {
         playerState = PlayerState.Dead;
+
+        // stop running
         Controller.StopRunning();
 
         // play crash sound
         AudioManager.Instance.PlaySound2DOneShot(crashSound);
 
+        // play crash effect
+        crashEffect.gameObject.SetActive(true);
+        crashEffect.Play();
+
+        // trigger game over
         GameManager.Instance.GameOver();
     }
 

@@ -37,7 +37,7 @@ public class PlayerSkinController : MonoBehaviour
 
     public void SaveSelectedSkin()
     {
-        string selectedSkinId = selectedSkin ? selectedSkin.Data.id.ToString() : string.Empty;
+        string selectedSkinId = selectedSkin != null ? selectedSkin.Data.id.ToString() : string.Empty;
         SaveManager.Instance.SaveSelectedSkin(selectedSkinId);
         PlayerPrefs.Save();
     }

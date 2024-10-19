@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!243 &-7906473955758515636
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: ff939ac170356fa488e53ca8ad10d1ab
+  m_Children: []
+  m_Volume: 7b466a9cb27df0a44b34038816a7180e
+  m_Pitch: 946bab3cc5a3c4c45be347fe15a8e29d
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 1401102470612246209}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!243 &-7559606396008507201
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -63,6 +82,7 @@ AudioMixerController:
     - ddfb962854f03804ead529f95f8296a1
     - 51647f9f353a3ba418c858c5485fc0c4
     - 9d88d871420487d4fb31cb26be3db922
+    - ff939ac170356fa488e53ca8ad10d1ab
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -79,6 +99,7 @@ AudioMixerGroupController:
   - {fileID: 5436537954550862727}
   - {fileID: 2981271649717242860}
   - {fileID: -7559606396008507201}
+  - {fileID: -7906473955758515636}
   m_Volume: b7cdf684d0b57234287495bf7fc218cb
   m_Pitch: da8c4c1551da74541a180323be398ca8
   m_Send: 00000000000000000000000000000000
@@ -114,8 +135,23 @@ AudioMixerSnapshotController:
   m_FloatValues:
     24e556b4e5888204b9cfc213e8421759: 0
     0168c2c64f81a8147a2732be85e353d0: -24.162655
+    7b466a9cb27df0a44b34038816a7180e: -3.5090396
     477c785da4ae5e446b86852b59cff565: -9.833286
   m_TransitionOverrides: {}
+--- !u!244 &1401102470612246209
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: ea95ed1fce892e74d991dcba5efe9eaa
+  m_EffectName: Attenuation
+  m_MixLevel: 28780955e53c9ea40809cef9bfdc5a90
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &2814927835251653782
 AudioMixerEffectController:
   m_ObjectHideFlags: 3

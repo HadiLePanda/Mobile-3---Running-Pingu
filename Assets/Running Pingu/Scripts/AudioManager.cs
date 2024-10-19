@@ -5,6 +5,7 @@ public class AudioManager : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioSource uiSource;
 
     public static AudioManager Instance;
 
@@ -13,20 +14,21 @@ public class AudioManager : MonoBehaviour
         Instance = this;
     }
 
+    // UI
+    public void PlaySoundUIOneShot(AudioClip clip, float volume = 1.0f, float pitchVariation = 0f)
+    {
+        if (clip == null)
+            return;
+
+        PlayOneShot(uiSource, clip, volume, pitchVariation);
+    }
     // SFX
     public void PlaySound2DOneShot(AudioClip clip, float volume = 1.0f, float pitchVariation = 0f)
     {
         if (clip == null)
             return;
 
-        // randomize sound values and play it
-        sfxSource.pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);
-
-        // play sound
-        sfxSource.PlayOneShot(clip, volume);
-        
-        // reset default values
-        sfxSource.pitch = 1f;
+        PlayOneShot(sfxSource, clip, volume, pitchVariation);
     }
     public void PlaySound2DOneShotWithDelay(AudioClip clip, float volume = 1.0f, float pitchVariation = 0f, float delay = 0f)
     {
@@ -39,5 +41,17 @@ public class AudioManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         PlaySound2DOneShot(clip, volume, pitchVariation);
+    }
+
+    private void PlayOneShot(AudioSource audioSource, AudioClip clip, float volume = 1.0f, float pitchVariation = 0f)
+    {
+        // randomize sound values and play it
+        audioSource.pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);
+
+        // play sound
+        audioSource.PlayOneShot(clip, volume);
+
+        // reset default values
+        audioSource.pitch = 1f;
     }
 }

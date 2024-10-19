@@ -836,6 +836,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 472d0e2bd3600d44ca08e5aba95759c4,
         type: 3}
+    - target: {fileID: 8517130924342429333, guid: 125ad5f9fd7d71a41910aab38a169dd1,
+        type: 3}
+      propertyPath: clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 011394e1918a4354ab6318c84f067966, type: 3}
     - target: {fileID: 8586237850226128087, guid: 125ad5f9fd7d71a41910aab38a169dd1,
         type: 3}
       propertyPath: m_Name
@@ -1145,6 +1150,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 8ebe5fe30b2602945a41641a33ee1934,
         type: 3}
+    - target: {fileID: 8517130924342429333, guid: 125ad5f9fd7d71a41910aab38a169dd1,
+        type: 3}
+      propertyPath: clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 011394e1918a4354ab6318c84f067966, type: 3}
     - target: {fileID: 8586237850226128087, guid: 125ad5f9fd7d71a41910aab38a169dd1,
         type: 3}
       propertyPath: m_Name

@@ -2004,13 +2004,13 @@ MonoBehaviour:
     reward: 400
     sprite: {fileID: 21300000, guid: eb622b0551453614e9398e3fa1487f5a, type: 3}
   - unit: Coins
-    reward: 600
-    sprite: {fileID: 21300000, guid: eb622b0551453614e9398e3fa1487f5a, type: 3}
-  - unit: Coins
     reward: 800
     sprite: {fileID: 21300000, guid: eb622b0551453614e9398e3fa1487f5a, type: 3}
   - unit: Coins
-    reward: 1000
+    reward: 1200
+    sprite: {fileID: 21300000, guid: eb622b0551453614e9398e3fa1487f5a, type: 3}
+  - unit: Coins
+    reward: 2200
     sprite: {fileID: 21300000, guid: eb622b0551453614e9398e3fa1487f5a, type: 3}
   - unit: Coins
     reward: 3000

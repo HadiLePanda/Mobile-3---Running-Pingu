@@ -104,8 +104,9 @@ public class GameManager : MonoBehaviour
         ResetStates();
 
         // play music at lower volume
-        MusicManager.Instance.SetMusicVolume(musicIdleVolume);
-        MusicManager.Instance.PlayMusicInstant();
+        //MusicManager.Instance.SetMusicVolume(musicIdleVolume);
+        //MusicManager.Instance.PlayMusicInstant();
+        MusicManager.Instance.PlayMusic(targetVolume: musicIdleVolume);
 
         // teleport the player to the start and make them idle
         Player.Instance.TeleportToStart();

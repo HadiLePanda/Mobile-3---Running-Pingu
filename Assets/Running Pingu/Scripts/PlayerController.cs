@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField] private Player player;
     [SerializeField] private CharacterController controller;
-    [SerializeField] private Animator anim;
     [SerializeField] private TrailRenderer trail;
 
     [Header("Settings")]
@@ -185,7 +184,7 @@ public class PlayerController : MonoBehaviour
         movementState = MovementState.Airborne;
         verticalVelocity = jumpForce;
 
-        anim.SetTrigger(ANIM_JUMP);
+        player.anim.SetTrigger(ANIM_JUMP);
 
         // play jump sound
         AudioManager.Instance.PlaySound2DOneShot(jumpSound, pitchVariation: 0.1f);
@@ -307,9 +306,9 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateAnimations()
     {
-        anim.SetBool(ANIM_RUNNING, movementState == MovementState.Running);
-        anim.SetBool(ANIM_SLIDING, movementState == MovementState.Sliding);
-        anim.SetBool(ANIM_GROUNDED, isGrounded);
+        player.anim.SetBool(ANIM_RUNNING, movementState == MovementState.Running);
+        player.anim.SetBool(ANIM_SLIDING, movementState == MovementState.Sliding);
+        player.anim.SetBool(ANIM_GROUNDED, isGrounded);
     }    
 
     private bool GroundedRaycast()
@@ -330,6 +329,7 @@ public class PlayerController : MonoBehaviour
         desiredLane = Mathf.Clamp(desiredLane, 0, 2);
     }
 
+    //private void OnCollisionEnter(Collision hit)
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         // only detect collision when running
@@ -349,6 +349,14 @@ public class PlayerController : MonoBehaviour
         // only detect when running
         if (Player.Instance.State != PlayerState.Running)
             return;
+
+        // hit an obstacle
+        if (other.gameObject.CompareTag("Obstacle"))
+        {
+            // make the player crash and trigger game over
+            player.Crash();
+            return;
+        }
 
         // entered a pickup
         var pickup = other.GetComponentInParent<Pickup>();

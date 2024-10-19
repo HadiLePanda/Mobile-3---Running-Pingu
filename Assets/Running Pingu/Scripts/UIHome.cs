@@ -50,10 +50,15 @@ public class UIHome : MonoBehaviour
         if (!IsUsernameValid())
             return;
 
-        // save entered username
+        // update the player username
         var username = usernameInputField.text;
         GameManager.Instance.SetUsername(username);
+
+        // save entered username
         SaveManager.Instance.SaveUsername(username);
+
+        // save selected skin
+        Player.Instance.SkinController.SaveSelectedSkin();
 
         // start the game
         GameManager.Instance.StartRunning();

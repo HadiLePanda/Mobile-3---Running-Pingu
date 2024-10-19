@@ -9,9 +9,10 @@ public struct UserData
 
 public class SaveManager : MonoBehaviour
 {
-    public static string PREF_USERNAME = "Username";
-    public static string PREF_HIGHSCORE = "Highscore";
-    public static string PREF_COINS = "Coins";
+    public static readonly string PREF_USERNAME = "Username";
+    public static readonly string PREF_HIGHSCORE = "Highscore";
+    public static readonly string PREF_COINS = "Coins";
+    public static readonly string PREF_SKIN_SELECTED_ID = "SelectedSkinId";
 
     public static SaveManager Instance;
 
@@ -49,4 +50,7 @@ public class SaveManager : MonoBehaviour
 
     public int LoadCoins() => PlayerPrefs.GetInt(PREF_COINS, 0);
     public void SaveCoins(int value) => PlayerPrefs.SetInt(PREF_COINS, value);
+
+    public string LoadSelectedSkinId() => PlayerPrefs.GetString(PREF_SKIN_SELECTED_ID, string.Empty);
+    public void SaveSelectedSkin(string skinId) => PlayerPrefs.SetString(PREF_SKIN_SELECTED_ID, skinId);
 }

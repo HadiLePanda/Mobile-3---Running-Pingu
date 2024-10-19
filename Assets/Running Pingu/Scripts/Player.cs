@@ -13,8 +13,10 @@ public class Player : MonoBehaviour
     public const string ANIM_IDLE = "Idle";
 
     [Header("References")]
-    [SerializeField] private Animator anim;
+    public Animator defaultAnimator;
+    public Animator anim;
     [field:SerializeField] public PlayerController Controller { get; private set; }
+    [field:SerializeField] public PlayerSkinController SkinController { get; private set; }
 
     [Header("Sounds")]
     [SerializeField] private AudioClip crashSound;
@@ -32,6 +34,12 @@ public class Player : MonoBehaviour
         Instance = this;
 
         startPosition = transform.position;
+    }
+
+    private void Start()
+    {
+        if (anim == null)
+            anim = defaultAnimator;
     }
 
     private void Update()

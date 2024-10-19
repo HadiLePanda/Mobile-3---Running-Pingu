@@ -25,9 +25,15 @@ public class MusicManager : MonoBehaviour
             StopCoroutine(musicFadeRoutine);
         musicFadeRoutine = StartCoroutine(AnimateMusicCrossfade(gameMusic, targetVolume, fadeDuration));
     }
+    public void PlayMusicInstant(float targetVolume = 1f, float fadeDuration = 0.5f)
+    {
+        musicSource.clip = gameMusic;
+        musicSource.Play();
+    }
     public void StopMusic() => musicSource.Stop();
     public void PauseMusic() => musicSource.Pause();
     public void ResumeMusic() => musicSource.UnPause();
+    public void SetMusicVolume(float volume) => musicSource.volume = volume;
 
     IEnumerator AnimateMusicCrossfade(AudioClip nextTrack, float targetVolume = 1f, float fadeDuration = 0.5f)
     {

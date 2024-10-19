@@ -18,8 +18,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float difficultyIncreaseAmount = 0.1f;
 
     [Header("Music Settings")]
-    [SerializeField] private float musicLoweredVolume = 0.5f;
-    [SerializeField] private float musicNormalVolume = 1f;
+    [SerializeField] private float musicIdleVolume = 0.5f;
+    [SerializeField] private float musicGameOverVolume = 0.2f;
+    [SerializeField] private float musicGameplayVolume = 1f;
 
     [Header("Sounds")]
     [SerializeField] private AudioClip gameStartSound;
@@ -102,6 +103,10 @@ public class GameManager : MonoBehaviour
 
         ResetStates();
 
+        // play music at lower volume
+        MusicManager.Instance.SetMusicVolume(musicIdleVolume);
+        MusicManager.Instance.PlayMusicInstant();
+
         // teleport the player to the start and make them idle
         Player.Instance.TeleportToStart();
         Player.Instance.Idle();
@@ -132,10 +137,10 @@ public class GameManager : MonoBehaviour
         ResetStates();
 
         // play game start sound
-        AudioManager.Instance.PlaySound2DOneShot(gameStartSound);
+        AudioManager.Instance.PlaySound2DOneShot(gameStartSound, volume: 0.75f);
 
         // change music volume
-        MusicManager.Instance.PlayMusic(targetVolume: musicNormalVolume);
+        MusicManager.Instance.SetMusicVolume(musicGameplayVolume);
 
         // start the run
         Player.Instance.Run();
@@ -158,7 +163,9 @@ public class GameManager : MonoBehaviour
     private IEnumerator GameOverSequence()
     {
         // stop music
-        MusicManager.Instance.StopMusic();
+        //MusicManager.Instance.StopMusic();
+        // lower music volume
+        MusicManager.Instance.SetMusicVolume(musicGameOverVolume);
 
         // play gameover sfx
         AudioManager.Instance.PlaySound2DOneShot(gameOverSound);
@@ -203,7 +210,7 @@ public class GameManager : MonoBehaviour
 #endif
     }
 
-        public void AddScore(int amount)
+    public void AddScore(int amount)
     {
         sessionScore = Mathf.Max(0, sessionScore + amount);
     }
@@ -212,7 +219,7 @@ public class GameManager : MonoBehaviour
         sessionCoinsScore = Mathf.Max(0, sessionCoinsScore + amount);
     }
 
-    public void UpdateModifier(int newModifier)
+    public void UpdateDifficulyModifier(int newModifier)
     {
         difficultyModifier = newModifier;
     }

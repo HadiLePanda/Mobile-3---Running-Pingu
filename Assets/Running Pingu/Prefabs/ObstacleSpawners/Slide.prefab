@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5946415139272471456}
   - component: {fileID: 4272534851709913524}
   m_Layer: 8
-  m_Name: Collider
+  m_Name: DeathCollider
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

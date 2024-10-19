@@ -457,7 +457,7 @@ MonoBehaviour:
   slideHitboxMutliplier: 0.5
   groundedLayerMask:
     serializedVersion: 2
-    m_Bits: 385
+    m_Bits: 128
   groundedRayOffsetY: 0.2
   groundedRayTreshold: 0.1
 --- !u!114 &5720457361509913410

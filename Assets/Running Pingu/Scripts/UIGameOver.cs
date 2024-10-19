@@ -22,9 +22,9 @@ public class UIGameOver : UIWindow
         GameManager.Instance.onGameOver -= OnGameOver;
     }
 
-    private void Start()
+    protected override void Start()
     {
-        Close();
+        base.Start();
 
         GameManager.Instance.onGameOver += OnGameOver;
     }

@@ -22,9 +22,9 @@ public class UISettings : UIWindow
     public float defaultMasterVolume = 1f;
     public float defaultMusicVolume = 0.5f;
 
-    private void Start()
+    protected override void Start()
     {
-        Close();
+        base.Start();
         LoadVolume();
     }
 

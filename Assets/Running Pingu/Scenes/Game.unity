@@ -254,12 +254,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b19ea90bd7557fd45b7b6c2ef1f48d48, type: 3}
---- !u!1 &140556382 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9063928125794629787, guid: a6e8ca0fd98811d47b22dc80214fabdd,
-    type: 3}
-  m_PrefabInstance: {fileID: 4161113897236000407}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &153043533
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8503,21 +8497,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6951326421480502298, guid: a6e8ca0fd98811d47b22dc80214fabdd,
-        type: 3}
-      propertyPath: m_Height
-      value: 0.96
-      objectReference: {fileID: 0}
-    - target: {fileID: 6951326421480502298, guid: a6e8ca0fd98811d47b22dc80214fabdd,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.22
-      objectReference: {fileID: 0}
-    - target: {fileID: 6951326421480502298, guid: a6e8ca0fd98811d47b22dc80214fabdd,
-        type: 3}
-      propertyPath: m_Center.y
-      value: 0.48
-      objectReference: {fileID: 0}
     - target: {fileID: 9063928125794629787, guid: a6e8ca0fd98811d47b22dc80214fabdd,
         type: 3}
       propertyPath: m_Name
@@ -8526,35 +8505,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 9063928125794629787, guid: a6e8ca0fd98811d47b22dc80214fabdd,
-        type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 4161113897236000410}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6e8ca0fd98811d47b22dc80214fabdd, type: 3}
---- !u!136 &4161113897236000410
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 140556382}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.24
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1001 &4514737960387234712
 PrefabInstance:
   m_ObjectHideFlags: 0

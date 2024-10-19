@@ -8037,7 +8037,7 @@ MonoBehaviour:
   musicGameOverVolume: 0.2
   musicGameplayVolume: 1
   gameStartSound: {fileID: 8300000, guid: 9d18ed2db12667a42bb474246defb152, type: 3}
-  gameOverSound: {fileID: 8300000, guid: 4abc303302cfb364a89c6879baf8ea6e, type: 3}
+  gameOverSound: {fileID: 8300000, guid: efff0ae813e8ffc428cfe6387b94b683, type: 3}
 --- !u!4 &2137215012
 Transform:
   m_ObjectHideFlags: 0

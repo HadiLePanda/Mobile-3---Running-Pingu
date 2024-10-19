@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Music Settings")]
     [SerializeField] private float musicIdleVolume = 0.5f;
-    [SerializeField] private float musicGameOverVolume = 0.2f;
     [SerializeField] private float musicGameplayVolume = 1f;
 
     [Header("Sounds")]
@@ -104,8 +103,6 @@ public class GameManager : MonoBehaviour
         ResetStates();
 
         // play music at lower volume
-        //MusicManager.Instance.SetMusicVolume(musicIdleVolume);
-        //MusicManager.Instance.PlayMusicInstant();
         MusicManager.Instance.PlayMusic(targetVolume: musicIdleVolume);
 
         // teleport the player to the start and make them idle
@@ -164,9 +161,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator GameOverSequence()
     {
         // stop music
-        //MusicManager.Instance.StopMusic();
-        // lower music volume
-        MusicManager.Instance.SetMusicVolume(musicGameOverVolume);
+        MusicManager.Instance.StopMusic();
 
         // play gameover sfx
         AudioManager.Instance.PlaySound2DOneShot(gameOverSound);

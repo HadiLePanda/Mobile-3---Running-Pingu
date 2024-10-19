@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Skin Data", menuName = "RunningPingu/Skins")]
+[CreateAssetMenu(fileName = "New Skin Data", menuName = "RunningPingu/Skins/New Skin")]
 public class SkinData : ScriptableObject
 {
     [Header("Data")]

@@ -1,3 +1,4 @@
+using NiobiumStudios;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,13 +15,19 @@ public class UIHome : MonoBehaviour
     private void OnEnable()
     {
         GameManager.onDataLoaded += OnUserDataLoaded;
+        DailyRewards.instance.onClaimPrize += OnClaimPrizeDailyRewards;
     }
     private void OnDisable()
     {
         GameManager.onDataLoaded -= OnUserDataLoaded;
+        DailyRewards.instance.onClaimPrize -= OnClaimPrizeDailyRewards;
     }
 
     private void OnUserDataLoaded()
+    {
+        UpdateUserDataUI();
+    }
+    private void OnClaimPrizeDailyRewards(int day)
     {
         UpdateUserDataUI();
     }

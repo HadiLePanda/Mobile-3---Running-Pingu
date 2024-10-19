@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 182bb5d4ceaaaa744b28167c766d061a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupSound: {fileID: 8300000, guid: 5550d858cf52e1d498ace6ede9e49a52, type: 3}
+  pickupEffect: {fileID: 0}
   anim: {fileID: 3216107495667969951}
   pickupCollider: {fileID: 5147789994464274117}
   coinsValue: 1

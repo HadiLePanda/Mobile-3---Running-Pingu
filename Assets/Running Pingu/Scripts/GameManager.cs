@@ -17,6 +17,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float difficultyncreaseInterval = 2.5f;
     [SerializeField] private float difficultyIncreaseAmount = 0.1f;
 
+    [Header("Music Settings")]
+    [SerializeField] private float musicLoweredVolume = 0.5f;
+    [SerializeField] private float musicNormalVolume = 1f;
+
+    [Header("Sounds")]
+    [SerializeField] private AudioClip gameStartSound;
+    [SerializeField] private AudioClip gameOverSound;
+
     private float sessionScore;
     private int sessionCoinsScore;
     private int highscoreBeforeSession;
@@ -123,6 +131,12 @@ public class GameManager : MonoBehaviour
 
         ResetStates();
 
+        // play game start sound
+        AudioManager.Instance.PlaySound2DOneShot(gameStartSound);
+
+        // change music volume
+        MusicManager.Instance.PlayMusic(targetVolume: musicNormalVolume);
+
         // start the run
         Player.Instance.Run();
 
@@ -143,6 +157,12 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GameOverSequence()
     {
+        // stop music
+        MusicManager.Instance.StopMusic();
+
+        // play gameover sfx
+        AudioManager.Instance.PlaySound2DOneShot(gameOverSound);
+
         // check if we beat our highscore
         if (sessionScore > userData.highscore)
         {
@@ -156,6 +176,8 @@ public class GameManager : MonoBehaviour
         var newCoins = userData.coins + sessionCoinsScore;
         SetCoins(newCoins);
         SaveManager.Instance.SaveCoins(newCoins);
+
+        PlayerPrefs.Save();
 
         yield return null;
     }
@@ -172,7 +194,16 @@ public class GameManager : MonoBehaviour
         isGameStarted = false;
     }
 
-    public void AddScore(int amount)
+    public void Quit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
+        public void AddScore(int amount)
     {
         sessionScore = Mathf.Max(0, sessionScore + amount);
     }

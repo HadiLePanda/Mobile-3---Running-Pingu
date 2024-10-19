@@ -3,10 +3,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIGameOver : MonoBehaviour
+public class UIGameOver : UIWindow
 {
     [Header("References")]
-    public GameObject panel;
     public TMP_Text sessionScoreText;
     public TMP_Text sessionCoinsText;
     public Button retryButton;
@@ -25,7 +24,7 @@ public class UIGameOver : MonoBehaviour
 
     private void Start()
     {
-        panel.SetActive(false);
+        Close();
 
         GameManager.Instance.onGameOver += OnGameOver;
     }
@@ -50,7 +49,7 @@ public class UIGameOver : MonoBehaviour
 
         // show game over UI
         // TODO: add animation
-        panel.SetActive(true);
+        Open();
 
         // wait for some time
         yield return new WaitForSeconds(timeBeforeRetry);

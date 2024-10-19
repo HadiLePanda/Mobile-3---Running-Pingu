@@ -41,12 +41,12 @@ PrefabInstance:
     - target: {fileID: 5174741027611222698, guid: 4d2d382a14f4aaa40a7419653e68d545,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 500
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 5174741027611222698, guid: 4d2d382a14f4aaa40a7419653e68d545,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 60
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5174741027611222698, guid: 4d2d382a14f4aaa40a7419653e68d545,
         type: 3}
@@ -141,7 +141,7 @@ PrefabInstance:
     - target: {fileID: 8949500994201690185, guid: 4d2d382a14f4aaa40a7419653e68d545,
         type: 3}
       propertyPath: m_Name
-      value: Title Variant
+      value: Title
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

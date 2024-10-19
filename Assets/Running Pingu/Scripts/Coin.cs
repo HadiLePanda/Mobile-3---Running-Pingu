@@ -16,8 +16,6 @@ public class Coin : Pickup
 
     public override bool CanPickUp() => canPickUp;
 
-    // TODO: reset coins that have been disabled when spawning coins line
-
     private void OnEnable()
     {
         ResetPickup();
@@ -38,6 +36,13 @@ public class Coin : Pickup
 
         // play pickup animation
         anim.SetTrigger(ANIM_COLLECTED);
+
+        // play pickup sound
+        AudioManager.Instance.PlaySound2DOneShot(pickupSound, pitchVariation: 0.1f);
+
+        // play pickup effect
+        if (pickupEffect != null)
+            pickupEffect.Play();
 
         // disappear after some time
         Invoke(nameof(Disappear), 1f);

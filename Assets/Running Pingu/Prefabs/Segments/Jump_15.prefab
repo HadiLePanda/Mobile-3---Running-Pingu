@@ -293,6 +293,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9165764163598537423}
     m_Modifications:
+    - target: {fileID: 386837542878740635, guid: 471a4a37cc2386b4db83e0239a2a673f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6087085520829277310, guid: 471a4a37cc2386b4db83e0239a2a673f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -347,6 +352,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinsArc_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043385478740501089, guid: 471a4a37cc2386b4db83e0239a2a673f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

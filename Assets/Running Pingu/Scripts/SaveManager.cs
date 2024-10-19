@@ -37,14 +37,16 @@ public class SaveManager : MonoBehaviour
         SaveUsername(data.username);
         SaveHighscore(data.highscore);
         SaveCoins(data.coins);
+
+        PlayerPrefs.Save();
     }
 
-    public void SaveUsername(string username) => PlayerPrefs.SetString(PREF_USERNAME, username);
     public string LoadUsername() => PlayerPrefs.GetString(PREF_USERNAME, string.Empty);
+    public void SaveUsername(string username) => PlayerPrefs.SetString(PREF_USERNAME, username);
 
-    public void SaveHighscore(int value) => PlayerPrefs.SetInt(PREF_HIGHSCORE, value);
     public int LoadHighscore() => PlayerPrefs.GetInt(PREF_HIGHSCORE, 0);
+    public void SaveHighscore(int value) => PlayerPrefs.SetInt(PREF_HIGHSCORE, value);
 
-    public void SaveCoins(int value) => PlayerPrefs.SetInt(PREF_COINS, value);
     public int LoadCoins() => PlayerPrefs.GetInt(PREF_COINS, 0);
+    public void SaveCoins(int value) => PlayerPrefs.SetInt(PREF_COINS, value);
 }

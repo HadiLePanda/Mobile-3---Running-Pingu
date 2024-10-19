@@ -18,19 +18,27 @@ public enum MovementState
 public class PlayerController : MonoBehaviour
 {
     private const float LANE_DISTANCE = 3.0f;
-    private const string ANIM_GROUNDED = "IsGrounded";
-    private const string ANIM_RUNNING = "Running";
-    private const string ANIM_SLIDING = "Sliding";
-    private const string ANIM_JUMP = "Jump";
+    private static readonly int ANIM_GROUNDED = Animator.StringToHash("IsGrounded");
+    private static readonly int ANIM_RUNNING = Animator.StringToHash("Running");
+    private static readonly int ANIM_SLIDING = Animator.StringToHash("Sliding");
+    private static readonly int ANIM_JUMP = Animator.StringToHash("Jump");
 
     [Header("References")]
     [SerializeField] private Player player;
     [SerializeField] private CharacterController controller;
     [SerializeField] private Animator anim;
+    [SerializeField] private TrailRenderer trail;
 
     [Header("Settings")]
     [SerializeField] private float gravity = 12f;
     [SerializeField] private float lookRotationDuration = 0.05f;
+
+    [Header("Sounds")]
+    [SerializeField] private AudioSource slideSource;
+    [SerializeField] private AudioClip swipeSound;
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private float swipePitchVariation = 0.1f;
+    [SerializeField] private float slidePitchVariation = 0.1f;
 
     [Header("Speed")]
     [SerializeField] private float baseSpeed = 7f;
@@ -105,6 +113,7 @@ public class PlayerController : MonoBehaviour
         HandleInput();
         Move();
         HandleRotation();
+        HandleTrailDisplay();
 
         UpdateAnimations();
     }
@@ -114,11 +123,25 @@ public class PlayerController : MonoBehaviour
         // handle player input for switching lanes
         if (MobileInput.Instance.SwipeLeft)
         {
+            // play swipe sfx
+            AudioManager.Instance.PlaySound2DOneShot(swipeSound, pitchVariation: swipePitchVariation);
+
+            // move towards left lane
             MoveLane(MovementDirection.Left);
         }
         else if (MobileInput.Instance.SwipeRight)
         {
+            // play swipe sfx
+            AudioManager.Instance.PlaySound2DOneShot(swipeSound, pitchVariation: swipePitchVariation);
+
+            // move towards right lane
             MoveLane(MovementDirection.Right);
+        }
+
+        // we landed
+        if (!wasGroundedLastFrame && isGrounded)
+        {
+            Land();
         }
 
         // we're on the ground
@@ -154,11 +177,6 @@ public class PlayerController : MonoBehaviour
                 FastFall();
             }
         }
-
-        if (!wasGroundedLastFrame && isGrounded)
-        {
-            Land();
-        }
     }
 
     private void Jump()
@@ -168,6 +186,9 @@ public class PlayerController : MonoBehaviour
         verticalVelocity = jumpForce;
 
         anim.SetTrigger(ANIM_JUMP);
+
+        // play jump sound
+        AudioManager.Instance.PlaySound2DOneShot(jumpSound, pitchVariation: 0.1f);
     }
 
     private void FastFall()
@@ -193,6 +214,11 @@ public class PlayerController : MonoBehaviour
         // change the collider size
         SetRegularHitbox();
         SetSlidingHitbox();
+
+        // randomize slide pitch
+        slideSource.pitch = Random.Range(1 - slidePitchVariation, 1 + slidePitchVariation);
+        // enable sliding sfx
+        slideSource.Play();
     }
 
     private void SetSlidingHitbox()
@@ -221,6 +247,9 @@ public class PlayerController : MonoBehaviour
 
         // set the collider back to original size
         SetRegularHitbox();
+
+        // disable sliding sfx
+        slideSource.Stop();
     }
 
     private void Move()
@@ -269,6 +298,11 @@ public class PlayerController : MonoBehaviour
             dir.y = 0;
             transform.forward = Vector3.Lerp(transform.forward, dir, lookRotationDuration);
         }
+    }
+
+    private void HandleTrailDisplay()
+    {
+        trail.emitting = MovementState is MovementState.Airborne or MovementState.Sliding;
     }
 
     private void UpdateAnimations()

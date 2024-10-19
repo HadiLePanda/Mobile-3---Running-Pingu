@@ -16,6 +16,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Animator anim;
     [field:SerializeField] public PlayerController Controller { get; private set; }
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip crashSound;
+
     private PlayerState playerState = PlayerState.Idle;
     private Vector3 startPosition;
     private Quaternion startRotation;
@@ -54,6 +57,9 @@ public class Player : MonoBehaviour
     {
         playerState = PlayerState.Dead;
         Controller.StopRunning();
+
+        // play crash sound
+        AudioManager.Instance.PlaySound2DOneShot(crashSound);
 
         GameManager.Instance.GameOver();
     }

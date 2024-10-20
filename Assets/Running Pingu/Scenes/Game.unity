@@ -531,7 +531,7 @@ Transform:
   m_GameObject: {fileID: 173106764}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 4.0000005, z: -2.5980759}
+  m_LocalPosition: {x: 0, y: 3.7500002, z: -2.1650634}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4367,7 +4367,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 3
+  m_CameraDistance: 2.5
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
@@ -8139,6 +8139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2137215012}
   - component: {fileID: 2137215011}
+  - component: {fileID: 2137215013}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -8179,6 +8180,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2137215013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137215010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 378aee8d6f57fb44f958332701ae1354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2145601357
 GameObject:
   m_ObjectHideFlags: 0
@@ -8366,10 +8379,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3266937478763415133, guid: 54e687a1642d4da4cb0b1aa57537bfc9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385147649853669172, guid: 54e687a1642d4da4cb0b1aa57537bfc9,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385147649853669172, guid: 54e687a1642d4da4cb0b1aa57537bfc9,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385147649853669172, guid: 54e687a1642d4da4cb0b1aa57537bfc9,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5751164382581908161, guid: 54e687a1642d4da4cb0b1aa57537bfc9,
         type: 3}
       propertyPath: m_Name
       value: DailyRewardsLandscape
+      objectReference: {fileID: 0}
+    - target: {fileID: 9151455381240906874, guid: 54e687a1642d4da4cb0b1aa57537bfc9,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9123,6 +9161,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4934763001400084487, guid: a6e8ca0fd98811d47b22dc80214fabdd,
+        type: 3}
+      propertyPath: slideHitboxMutliplier
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 5705507685447898022, guid: a6e8ca0fd98811d47b22dc80214fabdd,
         type: 3}
       propertyPath: m_LocalPosition.x

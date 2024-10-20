@@ -381,7 +381,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 0.96
-  m_Radius: 0.22
+  m_Radius: 0.25
   m_SlopeLimit: 60
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -406,7 +406,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.24
+  m_Radius: 0.28
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
@@ -443,6 +443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 7021431127613527839}
   controller: {fileID: 6951326421480502298}
+  triggerCollider: {fileID: 1214256037514525801}
   trail: {fileID: 6939797225404066719}
   gravity: -14
   lookRotationDuration: 0.05

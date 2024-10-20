@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField] private Player player;
     [SerializeField] private CharacterController controller;
+    [SerializeField] private CapsuleCollider triggerCollider;
     [SerializeField] private TrailRenderer trail;
 
     [Header("Settings")]
@@ -58,8 +59,10 @@ public class PlayerController : MonoBehaviour
     private bool isFastFalling;
     private bool wasGroundedLastFrame;
     private float verticalVelocity;
-    private float startingHitboxHeight;
-    private Vector3 startingHitboxCenter;
+    private float startingControllerHeight;
+    private Vector3 startingControllerCenter;
+    private float startingTriggerHitboxHeight;
+    private Vector3 startingTriggerHitboxCenter;
     private float speed;
     private Coroutine slideRoutine;
 
@@ -70,8 +73,10 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         // store original collider size
-        startingHitboxHeight = controller.height;
-        startingHitboxCenter = controller.center;
+        startingControllerHeight = controller.height;
+        startingControllerCenter = controller.center;
+        startingTriggerHitboxHeight = triggerCollider.height;
+        startingTriggerHitboxCenter = triggerCollider.center;
 
         // start at idle
         Idle();
@@ -234,7 +239,6 @@ public class PlayerController : MonoBehaviour
         isFastFalling = false;
 
         // change the collider size
-        SetRegularHitbox();
         SetSlidingHitbox();
 
         // randomize slide pitch
@@ -245,13 +249,19 @@ public class PlayerController : MonoBehaviour
 
     private void SetSlidingHitbox()
     {
-        controller.height *= slideHitboxMutliplier;
-        controller.center = new Vector3(controller.center.x, controller.center.y * slideHitboxMutliplier, controller.center.z);
+        controller.height = startingControllerHeight * slideHitboxMutliplier;
+        controller.center = startingControllerCenter * slideHitboxMutliplier;
+        //new Vector3(startingControllerHitboxCenter.x, startingControllerHitboxCenter.y * slideHitboxMutliplier, startingControllerHitboxCenter.z);
+        triggerCollider.height = startingTriggerHitboxHeight * slideHitboxMutliplier;
+        triggerCollider.center = startingControllerCenter * slideHitboxMutliplier;
+        // new Vector3(startingTriggerHitboxCenter.x, startingTriggerHitboxCenter.y * slideHitboxMutliplier, startingTriggerHitboxCenter.z);
     }
     private void SetRegularHitbox()
     {
-        controller.height = startingHitboxHeight;
-        controller.center = startingHitboxCenter;
+        controller.height = startingControllerHeight;
+        controller.center = startingControllerCenter;
+        triggerCollider.height = startingTriggerHitboxHeight;
+        triggerCollider.center = startingTriggerHitboxCenter;
     }
 
     private void CancelSlide()
@@ -345,7 +355,7 @@ public class PlayerController : MonoBehaviour
         {
             float deltaToDesiredPosition = (currentLane * DISTANCE_BETWEEN_LANES) - transform.position.x;
             r = (deltaToDesiredPosition > 0) ? 1 : -1;
-            r *= baseSidewaySpeed;
+            r *= Mathf.Min(baseSidewaySpeed * GameManager.Instance.DifficultyModifier, terminalVelocity);
 
             float actualDistance = r * Time.deltaTime;
             if (Mathf.Abs(actualDistance) > Mathf.Abs(deltaToDesiredPosition))

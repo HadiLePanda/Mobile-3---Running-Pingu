@@ -9,7 +9,11 @@ EditorBuildSettings:
     path: Assets/Running Pingu/Scenes/Game.unity
     guid: c850ee8c3b14cc8459e7e186857cf567
   m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000,
+      guid: e97106fd1569ea04ba9f73671e299b07, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 7cfd1aded59604545880dcf922077cec,
       type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000,
+      guid: 2bb910057abcfd84abbb3b8cdd7f6cec, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
       guid: 9f48e972bc6e9344eab1586eb5857571, type: 2}

@@ -21,7 +21,7 @@ PrefabInstance:
     - target: {fileID: 8109195112744543472, guid: 5c6075dedeba2bc4498a3719526efd87,
         type: 3}
       propertyPath: m_Name
-      value: Ramp1 Variant
+      value: Ramp1
       objectReference: {fileID: 0}
     - target: {fileID: 8303324882948370772, guid: 5c6075dedeba2bc4498a3719526efd87,
         type: 3}
@@ -99,6 +99,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 1b7ba92dbea65be4a8b4d7983b438af3, type: 3}
       propertyPath: m_Name
       value: SS_RampWood
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1b7ba92dbea65be4a8b4d7983b438af3, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1b7ba92dbea65be4a8b4d7983b438af3, type: 3}
       propertyPath: m_LocalPosition.x

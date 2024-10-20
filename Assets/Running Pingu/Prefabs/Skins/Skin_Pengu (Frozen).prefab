@@ -176,12 +176,7 @@ PrefabInstance:
     - target: {fileID: 783251647155079650, guid: 047a844aae0e2304eb0406b3d5f71d0a,
         type: 3}
       propertyPath: m_Name
-      value: Pengu (Frozen)
-      objectReference: {fileID: 0}
-    - target: {fileID: 783251647155079650, guid: 047a844aae0e2304eb0406b3d5f71d0a,
-        type: 3}
-      propertyPath: m_Layer
-      value: 6
+      value: Skin_Pengu (Frozen)
       objectReference: {fileID: 0}
     - target: {fileID: 783251647155079650, guid: 047a844aae0e2304eb0406b3d5f71d0a,
         type: 3}
@@ -254,7 +249,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 783251647155180998, guid: 047a844aae0e2304eb0406b3d5f71d0a,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 272681351582593712}
+      addedObject: {fileID: 2725796975370143406}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 783251647155079650, guid: 047a844aae0e2304eb0406b3d5f71d0a,
         type: 3}
@@ -362,7 +357,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f495b73183524940b76b92a8278f502, type: 3}
---- !u!4 &272681351582593712 stripped
+--- !u!4 &2725796975370143406 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 0f495b73183524940b76b92a8278f502,
     type: 3}

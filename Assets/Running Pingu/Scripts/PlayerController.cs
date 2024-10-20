@@ -17,7 +17,7 @@ public enum MovementState
 
 public class PlayerController : MonoBehaviour
 {
-    private const float LANE_DISTANCE = 3.0f;
+    private const float DISTANCE_BETWEEN_LANES = 3.0f;
     private static readonly int ANIM_GROUNDED = Animator.StringToHash("IsGrounded");
     private static readonly int ANIM_RUNNING = Animator.StringToHash("Running");
     private static readonly int ANIM_SLIDING = Animator.StringToHash("Sliding");
@@ -29,8 +29,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TrailRenderer trail;
 
     [Header("Settings")]
-    [SerializeField] private float gravity = 12f;
+    [SerializeField] private float gravity = -12f;
     [SerializeField] private float lookRotationDuration = 0.05f;
+    [SerializeField] private float groundedVelocityY = -1.0f;
 
     [Header("Sounds")]
     [SerializeField] private AudioSource slideSource;
@@ -41,7 +42,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Speed")]
     [SerializeField] private float baseSpeed = 7f;
-
+    [SerializeField] private float baseSidewaySpeed = 10.0f;
+    [SerializeField] private float terminalVelocity = 20f;
+    
     [Header("Jumping")]
     [SerializeField] private float jumpForce = 4f;
 
@@ -49,14 +52,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float slideDuration = 1f;
     [SerializeField] private float slideHitboxMutliplier = 0.5f;
 
-    [Header("Grounded")]
-    [SerializeField] private LayerMask groundedLayerMask;
-    [SerializeField] private float groundedRayOffsetY = 0.2f;
-    [SerializeField] private float groundedRayTreshold = 0.1f;
-
     private MovementState movementState = MovementState.Idle;
-    private int desiredLane = 1; // 0 = left, 1 = middle, 2 = right
+    private int currentLane = 0; // -1 = left, 0 = middle, 1 = right
     private bool isGrounded;
+    private bool isFastFalling;
     private bool wasGroundedLastFrame;
     private float verticalVelocity;
     private float startingHitboxHeight;
@@ -85,7 +84,8 @@ public class PlayerController : MonoBehaviour
         // reset states
         isGrounded = true;
         wasGroundedLastFrame = true;
-        desiredLane = 1; // middle lane
+        isFastFalling = false;
+        currentLane = 0; // middle lane
     }
 
     public void StartRunning()
@@ -99,22 +99,30 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (player.State != PlayerState.Running)
-            return;
+        if (player.State == PlayerState.Running)
+        {
+            // calculate speed
+            // speed is capped at terminal velocity
+            speed = Mathf.Min(baseSpeed * GameManager.Instance.DifficultyModifier, terminalVelocity);
 
-        // calculate speed
-        speed = baseSpeed * GameManager.Instance.DifficultyModifier;
+            // check grounded state
+            isGrounded = GroundedCheck();
 
-        // check grounded state
-        wasGroundedLastFrame = isGrounded;
-        isGrounded = GroundedRaycast();
+            HandleInput();
+            Move();
+            ApplyGravity();
+            HandleRotation();
 
-        HandleInput();
-        Move();
-        HandleRotation();
-        HandleTrailDisplay();
+            HandleTrailDisplay();
+            UpdateAnimations();
 
-        UpdateAnimations();
+            wasGroundedLastFrame = isGrounded;
+        }
+        else
+        {
+            speed = 0f;
+            ApplyGravity();
+        }
     }
 
     private void HandleInput()
@@ -126,7 +134,7 @@ public class PlayerController : MonoBehaviour
             AudioManager.Instance.PlaySound2DOneShot(swipeSound, pitchVariation: swipePitchVariation);
 
             // move towards left lane
-            MoveLane(MovementDirection.Left);
+            ChangeLane(MovementDirection.Left);
         }
         else if (MobileInput.Instance.SwipeRight)
         {
@@ -134,13 +142,24 @@ public class PlayerController : MonoBehaviour
             AudioManager.Instance.PlaySound2DOneShot(swipeSound, pitchVariation: swipePitchVariation);
 
             // move towards right lane
-            MoveLane(MovementDirection.Right);
+            ChangeLane(MovementDirection.Right);
         }
 
         // we landed
         if (!wasGroundedLastFrame && isGrounded)
         {
-            Land();
+            // if we were fast falling, chain to a slide
+            if (isFastFalling)
+            {
+                if (slideRoutine != null)
+                    StopCoroutine(slideRoutine);
+                slideRoutine = StartCoroutine(Slide());
+            }
+            // otherwise land normally
+            else
+            {
+                Land();
+            }
         }
 
         // we're on the ground
@@ -193,11 +212,13 @@ public class PlayerController : MonoBehaviour
     private void FastFall()
     {
         verticalVelocity = -jumpForce;
+        isFastFalling = true;
     }
 
     private void Land()
     {
         movementState = MovementState.Running;
+        isFastFalling = false;
     }
 
     private IEnumerator Slide()
@@ -209,6 +230,8 @@ public class PlayerController : MonoBehaviour
     private void StartSliding()
     {
         movementState = MovementState.Sliding;
+
+        isFastFalling = false;
 
         // change the collider size
         SetRegularHitbox();
@@ -253,39 +276,29 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        // calculate where we move at
-        Vector3 targetPosition = transform.position.z * Vector3.forward;
-        if (desiredLane == 0)
-        {
-            targetPosition += Vector3.left * LANE_DISTANCE;
-        }
-        else if (desiredLane == 2)
-        {
-            targetPosition += Vector3.right * LANE_DISTANCE;
-        }
-
         // calculate move delta
         Vector3 moveVector = Vector3.zero;
-        moveVector.x = (targetPosition - transform.position).normalized.x * speed;
 
-        // calculate Y
-        // we're grounded
-        if (isGrounded)
-        {
-            verticalVelocity = -0.1f;
-        }
-        // we're airborne
-        else
-        {
-            // apply gravity
-            verticalVelocity -= (gravity * Time.deltaTime);
-        }
-
+        moveVector.x = SnapToLane();
         moveVector.y = verticalVelocity;
         moveVector.z = speed;
 
         // move the player
         controller.Move(moveVector * Time.deltaTime);
+    }
+
+    private void ApplyGravity()
+    {
+        if (isGrounded)
+        {
+            verticalVelocity = groundedVelocityY;
+        }
+        else
+        {
+            verticalVelocity += gravity * Time.deltaTime;
+            if (verticalVelocity < -terminalVelocity)
+                verticalVelocity = -terminalVelocity;
+        }
     }
 
     private void HandleRotation()
@@ -309,35 +322,54 @@ public class PlayerController : MonoBehaviour
         player.anim.SetBool(ANIM_RUNNING, movementState == MovementState.Running);
         player.anim.SetBool(ANIM_SLIDING, movementState == MovementState.Sliding);
         player.anim.SetBool(ANIM_GROUNDED, isGrounded);
-    }    
-
-    private bool GroundedRaycast()
-    {
-        Ray groundRay = new(
-            new Vector3(controller.bounds.center.x, (controller.bounds.center.y - controller.bounds.extents.y) + groundedRayOffsetY, controller.bounds.center.z),
-                Vector3.down);
-        Debug.DrawRay(groundRay.origin, groundRay.direction, Color.cyan, 1.0f);
-
-        return Physics.Raycast(groundRay, groundedRayOffsetY + groundedRayTreshold, groundedLayerMask);
-
     }
 
-    private void MoveLane(MovementDirection moveDirection)
+    private bool GroundedCheck()
+    {
+        return controller.isGrounded;
+    }
+
+    private void ChangeLane(MovementDirection moveDirection)
     {
         // switch lane reference based on given input
-        desiredLane += (moveDirection == MovementDirection.Right) ? 1 : -1;
-        desiredLane = Mathf.Clamp(desiredLane, 0, 2);
+        currentLane += (moveDirection == MovementDirection.Right) ? 1 : -1;
+        currentLane = Mathf.Clamp(currentLane, -1, 1);
     }
+    
+    public float SnapToLane()
+    {
+        float r = 0.0f;
 
-    //private void OnCollisionEnter(Collision hit)
+        // if we're not directly on top of a lane
+        if (transform.position.x != (currentLane * DISTANCE_BETWEEN_LANES))
+        {
+            float deltaToDesiredPosition = (currentLane * DISTANCE_BETWEEN_LANES) - transform.position.x;
+            r = (deltaToDesiredPosition > 0) ? 1 : -1;
+            r *= baseSidewaySpeed;
+
+            float actualDistance = r * Time.deltaTime;
+            if (Mathf.Abs(actualDistance) > Mathf.Abs(deltaToDesiredPosition))
+                r = deltaToDesiredPosition * (1 / Time.deltaTime);
+        }
+        else
+        {
+            r = 0;
+        }
+
+        return r;
+    }
+    
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         // only detect collision when running
         if (player.State != PlayerState.Running)
             return;
+        
+        // check hit by layer name
+        string hitLayerName = LayerMask.LayerToName(hit.gameObject.layer);
 
         // hit an obstacle
-        if (hit.gameObject.CompareTag("Obstacle"))
+        if (hitLayerName == "Obstacle")
         {
             // make the player crash and trigger game over
             player.Crash();
@@ -350,23 +382,23 @@ public class PlayerController : MonoBehaviour
         if (Player.Instance.State != PlayerState.Running)
             return;
 
+        // check hit by layer name
+        string otherLayerName = LayerMask.LayerToName(other.gameObject.layer);
+        
         // hit an obstacle
-        if (other.gameObject.CompareTag("Obstacle"))
+        if (otherLayerName == "Obstacle")
         {
             // make the player crash and trigger game over
             player.Crash();
             return;
         }
 
-        // entered a pickup
+        // entered a pickup, and we're able to pick it up
         var pickup = other.GetComponentInParent<Pickup>();
-        if (pickup)
+        if (pickup &&  pickup.CanPickUp())
         {
-            if (pickup.CanPickUp())
-            {
-                // pick it up
-                pickup.PickUp();
-            }
+            // pick it up
+            pickup.PickUp();
         }
     }
 }

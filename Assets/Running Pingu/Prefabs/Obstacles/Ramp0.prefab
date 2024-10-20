@@ -95,6 +95,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SS_RampIce
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4dd9c515bc6e5d54eb35e10ddc897c49, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4dd9c515bc6e5d54eb35e10ddc897c49, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0

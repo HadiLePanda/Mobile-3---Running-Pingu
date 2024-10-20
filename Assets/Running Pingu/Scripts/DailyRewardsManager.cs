@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class DailyRewardsManager : MonoBehaviour
 {
+    [Header("Sounds")]
+    public AudioClip collectPrizeSound;
+
     public static DailyRewardsManager Instance;
 
     private void Awake()
@@ -34,5 +37,7 @@ public class DailyRewardsManager : MonoBehaviour
 
             Debug.Log($"Claimed {claimedReward.reward} coins");
         }
+
+        AudioManager.Instance.PlaySound2DOneShot(collectPrizeSound);
     }
 }

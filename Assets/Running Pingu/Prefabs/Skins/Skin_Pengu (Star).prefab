@@ -176,12 +176,7 @@ PrefabInstance:
     - target: {fileID: 783251647155079650, guid: 047a844aae0e2304eb0406b3d5f71d0a,
         type: 3}
       propertyPath: m_Name
-      value: Pengu (Star)
-      objectReference: {fileID: 0}
-    - target: {fileID: 783251647155079650, guid: 047a844aae0e2304eb0406b3d5f71d0a,
-        type: 3}
-      propertyPath: m_Layer
-      value: 6
+      value: Skin_Pengu (Star)
       objectReference: {fileID: 0}
     - target: {fileID: 783251647155079652, guid: 047a844aae0e2304eb0406b3d5f71d0a,
         type: 3}

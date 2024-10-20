@@ -4,6 +4,7 @@ using UnityEngine;
 public class UIDebugStates : MonoBehaviour
 {
     [Header("References")]
+    public TMP_Text groundedText;
     public TMP_Text playerState;
     public TMP_Text movementState;
     public TMP_Text gameState;
@@ -11,6 +12,7 @@ public class UIDebugStates : MonoBehaviour
 
     private void Update()
     {
+        groundedText.text = "IsGrounded: " + Player.Instance.Controller.IsGrounded;
         playerState.text = "Player: " + Player.Instance.State.ToString();
         movementState.text = "Movement: " + Player.Instance.Controller.MovementState.ToString();
         gameState.text = "Game: " + GameManager.Instance.GameState.ToString();

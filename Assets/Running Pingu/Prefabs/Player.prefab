@@ -382,10 +382,10 @@ CharacterController:
   serializedVersion: 3
   m_Height: 0.96
   m_Radius: 0.22
-  m_SlopeLimit: 50
+  m_SlopeLimit: 60
   m_StepOffset: 0.3
-  m_SkinWidth: 0.01
-  m_MinMoveDistance: 0.001
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.48, z: 0}
 --- !u!136 &1214256037514525801
 CapsuleCollider:
@@ -444,16 +444,17 @@ MonoBehaviour:
   player: {fileID: 7021431127613527839}
   controller: {fileID: 6951326421480502298}
   trail: {fileID: 6939797225404066719}
-  gravity: -12
+  gravity: -14
   lookRotationDuration: 0.05
-  groundedVelocityY: -1
+  groundedVelocityY: -0.1
   slideSource: {fileID: 8434748855769485401}
   swipeSound: {fileID: 8300000, guid: 06c8a4b934a7a1349a726b9942e6ad95, type: 3}
   jumpSound: {fileID: 8300000, guid: 06c8a4b934a7a1349a726b9942e6ad95, type: 3}
   swipePitchVariation: 0.1
   slidePitchVariation: 0.1
-  baseSpeed: 7
+  baseSpeed: 8
   baseSidewaySpeed: 10
+  terminalVelocity: 20
   jumpForce: 6
   slideDuration: 0.6
   slideHitboxMutliplier: 0.5

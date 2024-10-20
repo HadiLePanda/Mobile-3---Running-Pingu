@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float gravity = -12f;
     [SerializeField] private float lookRotationDuration = 0.05f;
-    [SerializeField] private float groundedVelocityY = -1.0f;
+    [SerializeField] private float groundedVelocityY = -0.1f;
 
     [Header("Sounds")]
     [SerializeField] private AudioSource slideSource;

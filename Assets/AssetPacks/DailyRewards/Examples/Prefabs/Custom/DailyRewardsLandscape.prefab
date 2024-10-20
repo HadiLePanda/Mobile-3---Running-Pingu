@@ -2175,25 +2175,25 @@ MonoBehaviour:
   isInitialized: 0
   rewards:
   - unit: Coins
-    reward: 100
-    sprite: {fileID: 21300000, guid: eb622b0551453614e9398e3fa1487f5a, type: 3}
-  - unit: Coins
     reward: 200
     sprite: {fileID: 21300000, guid: eb622b0551453614e9398e3fa1487f5a, type: 3}
   - unit: Coins
-    reward: 400
+    reward: 500
     sprite: {fileID: 21300000, guid: eb622b0551453614e9398e3fa1487f5a, type: 3}
   - unit: Coins
     reward: 800
     sprite: {fileID: 21300000, guid: eb622b0551453614e9398e3fa1487f5a, type: 3}
   - unit: Coins
-    reward: 1200
+    reward: 1500
     sprite: {fileID: 21300000, guid: eb622b0551453614e9398e3fa1487f5a, type: 3}
   - unit: Coins
-    reward: 2200
+    reward: 2500
     sprite: {fileID: 21300000, guid: eb622b0551453614e9398e3fa1487f5a, type: 3}
   - unit: Coins
-    reward: 3000
+    reward: 4000
+    sprite: {fileID: 21300000, guid: eb622b0551453614e9398e3fa1487f5a, type: 3}
+  - unit: Coins
+    reward: 10000
     sprite: {fileID: 21300000, guid: eb622b0551453614e9398e3fa1487f5a, type: 3}
   availableReward: 0
   lastReward: 0
